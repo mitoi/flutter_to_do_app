@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/service/todo_services.dart';
+import 'package:todo_app/widgets/todo_tile.dart';
 
 import 'add_todo.dart';
 
@@ -37,59 +39,16 @@ class _TodoItemCardState extends State<TodoItemCard> {
     List<Widget> subitems = [];
     if (widget.todo.children.length > 0) {
       for (var i = 0; i < widget.todo.children.length; i++) {
-        var item = widget.todo.children[i];
+        var item = Todo.fromJson(widget.todo.children[i]);
+
         subitems.add(Padding(
-          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-          child: ListTile(
-            leading: GestureDetector(
-              onTap: () =>
-                  TodoServices().toggleToDo(item["_id"], item["isComplet"]),
-              child: Container(
-                alignment: Alignment.center,
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(color: Colors.blue, width: 1)),
-                child: item["isComplet"]
-                    ? Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                        ),
-                      )
-                    : null,
-              ),
-            ),
-            title: Text(
-              "${item['title']}",
-              style: TextStyle(
-                decoration: item["isComplet"]
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none,
-                fontSize: 14,
-              ),
-            ),
-            subtitle: Text(
-              "${item['description']}",
-              style: TextStyle(
-                decoration: item["isComplet"]
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none,
-                fontSize: 12,
-              ),
-            ),
-            trailing: InkWell(
-              onTap: () => TodoServices().deleteTodos(item["_id"]),
-              child: Icon(
-                Icons.close,
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
-          ),
-        ));
+            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+            child: TodoTile(
+              todo: item,
+              size: 20,
+              primaryFontSize: 14,
+              secondaryFontSize: 12,
+            )));
       }
     }
 
@@ -111,8 +70,12 @@ class _TodoItemCardState extends State<TodoItemCard> {
       elevation: 5,
       child: ExpansionTile(
         leading: GestureDetector(
-          onTap: () =>
-              TodoServices().toggleToDo(widget.todo.id, widget.todo.isComplet),
+          onTap: () {
+            TodoServices().toggleToDo(widget.todo.id, widget.todo.isComplet);
+
+            HapticFeedback.mediumImpact();
+            SystemSound.play(SystemSoundType.click);
+          },
           child: Container(
             alignment: Alignment.center,
             height: 25,
@@ -150,56 +113,6 @@ class _TodoItemCardState extends State<TodoItemCard> {
           ),
         ),
         children: subitems,
-
-        // ListTile(
-        //   leading: GestureDetector(
-        //     onTap: () => TodoServices()
-        //         .toggleToDo(widget.todo.id, widget.todo.isComplet),
-        //     child: Container(
-        //       alignment: Alignment.center,
-        //       height: 25,
-        //       width: 25,
-        //       decoration: BoxDecoration(
-        //           shape: BoxShape.circle,
-        //           color: Colors.white,
-        //           border: Border.all(color: Colors.pink, width: 1)),
-        //       child: widget.todo.isComplet
-        //           ? Container(
-        //               decoration: BoxDecoration(
-        //                 color: Colors.pink,
-        //                 shape: BoxShape.circle,
-        //               ),
-        //             )
-        //           : null,
-        //     ),
-        //   ),
-        //   title: Text(
-        //     "${widget.todo.title}",
-        //     style: TextStyle(
-        //       decoration: widget.todo.isComplet
-        //           ? TextDecoration.lineThrough
-        //           : TextDecoration.none,
-        //       fontSize: 16,
-        //     ),
-        //   ),
-        //   subtitle: Text(
-        //     "${widget.todo.description}",
-        //     style: TextStyle(
-        //       decoration: widget.todo.isComplet
-        //           ? TextDecoration.lineThrough
-        //           : TextDecoration.none,
-        //       fontSize: 12,
-        //     ),
-        //   ),
-        //   trailing: InkWell(
-        //     onTap: () => TodoServices().deleteTodos(widget.todo.id),
-        //     child: Icon(
-        //       Icons.close,
-        //       color: Colors.black,
-        //       size: 25,
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }

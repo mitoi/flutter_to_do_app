@@ -71,6 +71,18 @@ module.exports.completTodos = async (req, res) => {
     { isComplet: req.body.isComplet },
     { new: true }
   );
+  
+  // update all subtasks
+  if (!todo.parentId) {
+    let childTasks = await Todo.find({parentId: todo._id});
+    for (let task of childTasks) {
+      await Todo.findByIdAndUpdate(  
+        task.id,
+        { isComplet: req.body.isComplet },
+        { new: true });
+    }
+  }
+
   if (!todo) return res.status(404).send(`No todos found with this id`);
   res.send(todo);
 };

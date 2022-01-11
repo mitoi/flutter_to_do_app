@@ -1,0 +1,4 @@
+backend/node_modules
+todo_app/build
+todo_app/pubspec.lock
+todo_app/.dart_tool
