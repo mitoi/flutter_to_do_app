@@ -22,6 +22,16 @@ class TodoTile extends StatefulWidget {
 class _TodoTileState extends State<TodoTile> {
   @override
   Widget build(BuildContext context) {
+    Map priorityColorMap = {
+      "High": Colors.red,
+      "Medium": Colors.orange,
+      "Low": Colors.lightGreen
+    };
+
+    Color cardColor = widget.todo.priority != null
+        ? priorityColorMap[widget.todo.priority]
+        : Colors.white;
+
     return ListTile(
       leading: GestureDetector(
         onTap: () {

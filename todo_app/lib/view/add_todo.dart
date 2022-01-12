@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/service/todo_services.dart';
+import 'package:todo_app/widgets/priority_dropdown.dart';
 
 class AddTodoForm extends StatefulWidget {
   final String parentId;
@@ -14,21 +15,31 @@ class AddTodoForm extends StatefulWidget {
 class _AddTodoFormState extends State<AddTodoForm> {
   TextEditingController _titleController;
   TextEditingController _descriptionController;
+  PriorityDropdown _priorityDropdown;
+
+  String _priority;
+
+  setPriority(value) {
+    setState(() {
+      _priority = value;
+    });
+  }
+
   @override
   void initState() {
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+    _priorityDropdown = PriorityDropdown(updatePriority: setPriority);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      // key: _formKey,
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: TextFormField(
               controller: _titleController,
               style: TextStyle(
@@ -51,8 +62,10 @@ class _AddTodoFormState extends State<AddTodoForm> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: TextFormField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               controller: _descriptionController,
               style: TextStyle(
                 color: Colors.black,
@@ -73,13 +86,19 @@ class _AddTodoFormState extends State<AddTodoForm> {
               ),
             ),
           ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: _priorityDropdown,
+          ),
           Spacer(),
           GestureDetector(
             onTap: () async {
               Todo newTodo = Todo(
-                  parentId: widget.parentId,
-                  title: _titleController.text,
-                  description: _descriptionController.text);
+                parentId: widget.parentId,
+                title: _titleController.text,
+                description: _descriptionController.text,
+                priority: _priority,
+              );
               if (_titleController.text.isNotEmpty) {
                 await TodoServices()
                     .createNewTodos(newTodo)

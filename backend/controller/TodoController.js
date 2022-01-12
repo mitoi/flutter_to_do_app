@@ -20,6 +20,9 @@ const todoSchema = new mongoose.Schema({
   },
   parentId: {
     type: String,
+  },
+  priority: {
+    type: String,
   }
 });
 
@@ -50,6 +53,7 @@ module.exports.createNewTodos = async (req, res) => {
     isComplet: req.body.isComplet,
     description: req.body.description,
     parentId: req.body.parentId,
+    priority: req.body.priority,
   });
   const result = await todo.save();
   res.send(result);
@@ -73,15 +77,15 @@ module.exports.completTodos = async (req, res) => {
   );
   
   // update all subtasks
-  if (!todo.parentId) {
-    let childTasks = await Todo.find({parentId: todo._id});
-    for (let task of childTasks) {
-      await Todo.findByIdAndUpdate(  
-        task.id,
-        { isComplet: req.body.isComplet },
-        { new: true });
-    }
-  }
+  // if (!todo.parentId) {
+  //   let childTasks = await Todo.find({parentId: todo._id});
+  //   for (let task of childTasks) {
+  //     await Todo.findByIdAndUpdate(  
+  //       task.id,
+  //       { isComplet: req.body.isComplet },
+  //       { new: true });
+  //   }
+  // }
 
   if (!todo) return res.status(404).send(`No todos found with this id`);
   res.send(todo);
@@ -101,6 +105,7 @@ function validateTodo(todos) {
     isComplet: Joi.boolean(),
     description: Joi.any(),
     parentId: Joi.any(),
+    priority: Joi.any(),
   });
   return schema.validate(todos);
 }

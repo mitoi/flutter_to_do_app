@@ -43,11 +43,11 @@ class _TodoListState extends State<TodoList> {
         useRootNavigator: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40),
-            topRight: Radius.circular(40),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
           ),
         ),
-        builder: (context) => Container(height: 350, child: AddTodoForm()),
+        builder: (context) => Container(height: 450, child: AddTodoForm()),
       );
     }
 
@@ -78,9 +78,7 @@ class _TodoListState extends State<TodoList> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
                     Divider(color: Colors.white38),
-                    SizedBox(height: 20),
                     Expanded(
                       child: Container(
                         child: ListView.builder(

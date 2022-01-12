@@ -5,13 +5,15 @@ class Todo {
   String description;
   String parentId;
   List children;
+  String priority;
   Todo(
       {this.isComplet,
       this.title,
       this.id,
       this.description,
       this.parentId,
-      this.children});
+      this.children,
+      this.priority});
 
   factory Todo.fromJson(Map<String, dynamic> map) {
     return Todo(
@@ -21,6 +23,7 @@ class Todo {
       description: map["description"],
       parentId: map["parentId"],
       children: map["children"],
+      priority: map["priority"],
     );
   }
 
@@ -29,6 +32,7 @@ class Todo {
       "title": title,
       "description": description,
       "parentId": parentId,
+      "priority": priority,
     };
   }
 }

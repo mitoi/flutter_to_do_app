@@ -25,12 +25,12 @@ class _TodoItemCardState extends State<TodoItemCard> {
       useRootNavigator: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
         ),
       ),
       builder: (context) =>
-          Container(height: 350, child: AddTodoForm(parentId: id)),
+          Container(height: 450, child: AddTodoForm(parentId: id)),
     );
   }
 
@@ -63,6 +63,16 @@ class _TodoItemCardState extends State<TodoItemCard> {
       ),
     ));
 
+    Map priorityColorMap = {
+      "High": Colors.red,
+      "Medium": Colors.orange,
+      "Low": Colors.lightGreen
+    };
+
+    Color cardColor = widget.todo.priority != null
+        ? priorityColorMap[widget.todo.priority]
+        : Colors.white;
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -70,30 +80,29 @@ class _TodoItemCardState extends State<TodoItemCard> {
       elevation: 5,
       child: ExpansionTile(
         leading: GestureDetector(
-          onTap: () {
-            TodoServices().toggleToDo(widget.todo.id, widget.todo.isComplet);
+            onTap: () {
+              TodoServices().toggleToDo(widget.todo.id, widget.todo.isComplet);
 
-            HapticFeedback.mediumImpact();
-            SystemSound.play(SystemSoundType.click);
-          },
-          child: Container(
-            alignment: Alignment.center,
-            height: 25,
-            width: 25,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                border: Border.all(color: Colors.green, width: 1)),
-            child: widget.todo.isComplet
-                ? Container(
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                    ),
-                  )
-                : null,
-          ),
-        ),
+              HapticFeedback.mediumImpact();
+              SystemSound.play(SystemSoundType.click);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 25,
+              width: 25,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: Colors.green, width: 1)),
+              child: widget.todo.isComplet
+                  ? Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                      ),
+                    )
+                  : null,
+            )),
         title: Text(
           "${widget.todo.title}",
           style: TextStyle(
