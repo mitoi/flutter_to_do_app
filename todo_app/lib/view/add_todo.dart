@@ -76,7 +76,6 @@ class _AddTodoFormState extends State<AddTodoForm> {
           Spacer(),
           GestureDetector(
             onTap: () async {
-              print(_titleController.text);
               Todo newTodo = Todo(
                   parentId: widget.parentId,
                   title: _titleController.text,
@@ -87,30 +86,34 @@ class _AddTodoFormState extends State<AddTodoForm> {
                     .whenComplete(() => Navigator.pop(context));
               }
             },
-            child: Container(
-              height: 70,
-              alignment: Alignment.center,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.pink,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                height: 75,
+                alignment: Alignment.center,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.teal,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.add, color: Colors.white, size: 40),
-                  Text(
-                    "ADD",
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add, color: Colors.white, size: 40),
+                    Text(
+                      "ADD",
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           )

@@ -155,7 +155,7 @@ class _TodoListState extends State<TodoList> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.teal,
         onPressed: () => showAddModal(),
         child: Icon(
           Icons.add,
