@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/service/todo_provider.dart';
@@ -11,9 +12,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<TodoProvider>.value(
       value: TodoProvider(),
       child: MaterialApp(
-        title: 'progressor',
+        title: 'tasks',
         home: TodoList(),
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(),
+        darkTheme: ThemeData.dark(), // standard dark theme
+        themeMode: ThemeMode.system,
       ),
     );
   }

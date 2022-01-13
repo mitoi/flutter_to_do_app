@@ -1,5 +1,5 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:todo_app/view/add_todo.dart';
 
 class PriorityDropdown extends StatelessWidget {
   final updatePriority;
@@ -34,7 +34,7 @@ class PriorityDropdown extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        onChanged: (String value) {
+        onChanged: (value) {
           updatePriority(value);
         },
       ),

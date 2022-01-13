@@ -1,5 +1,9 @@
+// @dart=2.9
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:todo_app/enums/priority.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/service/todo_services.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
@@ -63,15 +67,12 @@ class _TodoItemCardState extends State<TodoItemCard> {
       ),
     ));
 
-    Map priorityColorMap = {
-      "High": Colors.red,
-      "Medium": Colors.orange,
-      "Low": Colors.lightGreen
-    };
+    Priority priority = Priority.values.firstWhere(
+        (element) => describeEnum(element) == widget.todo.priority,
+        orElse: () => Priority.Empty);
 
-    Color cardColor = widget.todo.priority != null
-        ? priorityColorMap[widget.todo.priority]
-        : Colors.white;
+    Color cardColor =
+        priority != Priority.Empty ? priority.value : Colors.white;
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -92,8 +93,13 @@ class _TodoItemCardState extends State<TodoItemCard> {
               width: 25,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
-                  border: Border.all(color: Colors.green, width: 1)),
+                  color: cardColor.withOpacity(0.1),
+                  border: Border.all(
+                      color: (cardColor == Colors.white &&
+                              this.widget.todo.isComplet == false)
+                          ? Colors.green
+                          : cardColor,
+                      width: 1)),
               child: widget.todo.isComplet
                   ? Container(
                       decoration: BoxDecoration(

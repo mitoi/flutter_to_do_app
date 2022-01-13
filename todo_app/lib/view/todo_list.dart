@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _TodoListState extends State<TodoList> {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 }
-                List<Todo> todos = snapshot.data;
+                List<Todo> todos = snapshot.data as List<Todo>;
                 return Column(
                   children: [
                     Row(
@@ -83,7 +84,7 @@ class _TodoListState extends State<TodoList> {
                       child: Container(
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: todos.length,
+                          itemCount: todos?.length,
                           itemBuilder: (context, i) {
                             final item = todos[i];
 

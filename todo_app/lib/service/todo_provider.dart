@@ -1,12 +1,12 @@
+// @dart=2.9
 import 'package:flutter/widgets.dart';
 import 'package:todo_app/model/todo.dart';
 
-class TodoProvider extends ChangeNotifier{
+class TodoProvider extends ChangeNotifier {
   List<Todo> todos;
 
-  getAllTodos(List<Todo> getTodos){
+  getAllTodos(List<Todo> getTodos) {
     todos = getTodos;
     notifyListeners();
   }
-
 }

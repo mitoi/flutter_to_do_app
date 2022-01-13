@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:convert' as cnv;
 import 'dart:io';
 import 'package:http/http.dart';
@@ -9,7 +10,7 @@ class TodoServices {
   // to list all todos
   Future<List<Todo>> getAllTodos() async {
     try {
-      Response response = await get("$_url/todos");
+      Response response = await get(Uri.parse("$_url/todos"));
       if (response.statusCode == 200) {
         // debugPrint(response.body);
         return List<Todo>.from(
@@ -30,7 +31,7 @@ class TodoServices {
       final json = cnv.json.encode(todo.toJson());
       print(json);
       Response response = await post(
-        "$_url/todos",
+        Uri.parse("$_url/todos"),
         body: json,
         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       );
@@ -45,7 +46,7 @@ class TodoServices {
   Future completTodo(String id) async {
     try {
       Response response = await put(
-        "$_url/todos/$id",
+        Uri.parse("$_url/todos/$id"),
         body: cnv.json.encode({"isComplet": true}),
         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       );
@@ -61,7 +62,7 @@ class TodoServices {
   Future toggleToDo(String id, bool complete) async {
     try {
       Response response = await put(
-        "$_url/todos/$id",
+        Uri.parse("$_url/todos/$id"),
         body: cnv.json.encode({"isComplet": !complete}),
         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       );
@@ -77,7 +78,7 @@ class TodoServices {
   Future deleteTodos(String id) async {
     try {
       Response response = await delete(
-        "$_url/todos/$id",
+        Uri.parse("$_url/todos/$id"),
         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       );
       if (response.statusCode == 200) {

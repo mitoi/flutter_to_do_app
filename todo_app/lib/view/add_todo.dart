@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/service/todo_services.dart';
@@ -6,7 +7,7 @@ import 'package:todo_app/widgets/priority_dropdown.dart';
 class AddTodoForm extends StatefulWidget {
   final String parentId;
 
-  const AddTodoForm({Key key, this.parentId}) : super(key: key);
+  const AddTodoForm({Key key, String this.parentId}) : super(key: key);
 
   @override
   _AddTodoFormState createState() => _AddTodoFormState();
