@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/utils/authentication.dart';
+import 'package:todo_app/view/todo_list.dart';
 
 class FacebookSignInButton extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
                 backgroundColor: MaterialStateProperty.all(Colors.white),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
@@ -40,13 +41,13 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
                 });
 
                 if (user != null) {
-                  // Navigator.of(context).pushReplacement(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => UserInfoScreen(
-                  //       user: user,
-                  //     ),
-                  //   ),
-                  // );
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => TodoList(
+                        user: user,
+                      ),
+                    ),
+                  );
                 }
               },
               child: Padding(

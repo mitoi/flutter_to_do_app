@@ -12,8 +12,9 @@ import 'add_todo.dart';
 
 class TodoItemCard extends StatefulWidget {
   final Todo todo;
+  final String userId;
 
-  const TodoItemCard({Key key, this.todo}) : super(key: key);
+  const TodoItemCard({Key key, this.todo, this.userId}) : super(key: key);
   @override
   _TodoItemCardState createState() => _TodoItemCardState();
 }
@@ -33,8 +34,12 @@ class _TodoItemCardState extends State<TodoItemCard> {
           topRight: Radius.circular(25),
         ),
       ),
-      builder: (context) =>
-          Container(height: 450, child: AddTodoForm(parentId: id)),
+      builder: (context) => Container(
+          height: 450,
+          child: AddTodoForm(
+            parentId: id,
+            userId: widget.userId,
+          )),
     );
   }
 

@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/utils/authentication.dart';
+import 'package:todo_app/view/todo_list.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 backgroundColor: MaterialStateProperty.all(Colors.white),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
@@ -34,19 +35,18 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 });
                 User user =
                     await Authentication.signInWithGoogle(context: context);
-
                 setState(() {
                   _isSigningIn = false;
                 });
 
                 if (user != null) {
-                  // Navigator.of(context).pushReplacement(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => UserInfoScreen(
-                  //       user: user,
-                  //     ),
-                  //   ),
-                  // );
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => TodoList(
+                        user: user,
+                      ),
+                    ),
+                  );
                 }
               },
               child: Padding(
@@ -59,17 +59,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                       image: AssetImage("assets/google_logo.png"),
                       height: 35.0,
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 10),
-                    //   child: Text(
-                    //     'Sign in with Google',
-                    //     style: TextStyle(
-                    //       fontSize: 20,
-                    //       color: Colors.black54,
-                    //       fontWeight: FontWeight.w600,
-                    //     ),
-                    //   ),
-                    //)
                   ],
                 ),
               ),

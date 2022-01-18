@@ -23,6 +23,9 @@ const todoSchema = new mongoose.Schema({
   },
   priority: {
     type: String,
+  },
+  userId: {
+    type: String,
   }
 });
 
@@ -31,7 +34,9 @@ const Todo = mongoose.model("todos", todoSchema);
 
 // display all todo
 module.exports.listParentTodos = async (req, res) => {
-  const todos = await Todo.find({parentId: null});
+  const userId = req.params.userId;
+  const todos = await Todo.find({parentId: null, userId: userId,});
+
   for (let index in todos) {
     let todo = todos[index].toJSON();
 
@@ -54,6 +59,7 @@ module.exports.createNewTodos = async (req, res) => {
     description: req.body.description,
     parentId: req.body.parentId,
     priority: req.body.priority,
+    userId: req.body.userId,
   });
   const result = await todo.save();
   res.send(result);
@@ -106,6 +112,7 @@ function validateTodo(todos) {
     description: Joi.any(),
     parentId: Joi.any(),
     priority: Joi.any(),
+    userId: Joi.any(),
   });
   return schema.validate(todos);
 }

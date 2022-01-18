@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/service/todo_provider.dart';
+import 'package:todo_app/view/sign_in_screen.dart';
 import 'package:todo_app/view/todo_list.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       value: TodoProvider(),
       child: MaterialApp(
         title: 'tasks',
-        home: TodoList(),
+        home: SignInScreen(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(),
         darkTheme: ThemeData.dark(), // standard dark theme

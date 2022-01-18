@@ -38,14 +38,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Generic App',
+                      'today',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'Social Authentication',
+                      'todo',
                       style: TextStyle(
                         //color: CustomColors.firebaseOrange,
                         fontSize: 20,
@@ -60,7 +60,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Login with",
+                      "login",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

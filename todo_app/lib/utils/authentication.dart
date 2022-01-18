@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:todo_app/view/todo_list.dart';
 
 class Authentication {
   static SnackBar customSnackBar({String content}) {
@@ -25,13 +26,13 @@ class Authentication {
     User user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      // Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(
-      //     builder: (context) => UserInfoScreen(
-      //       user: user,
-      //     ),
-      //   ),
-      // );
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => TodoList(
+            user: user,
+          ),
+        ),
+      );
     }
 
     return firebaseApp;

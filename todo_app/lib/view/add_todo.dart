@@ -6,8 +6,10 @@ import 'package:todo_app/widgets/priority_dropdown.dart';
 
 class AddTodoForm extends StatefulWidget {
   final String parentId;
+  final String userId;
 
-  const AddTodoForm({Key key, String this.parentId}) : super(key: key);
+  const AddTodoForm({Key key, String this.parentId, String this.userId})
+      : super(key: key);
 
   @override
   _AddTodoFormState createState() => _AddTodoFormState();
@@ -99,6 +101,7 @@ class _AddTodoFormState extends State<AddTodoForm> {
                 title: _titleController.text,
                 description: _descriptionController.text,
                 priority: _priority,
+                userId: widget.userId,
               );
               if (_titleController.text.isNotEmpty) {
                 await TodoServices()

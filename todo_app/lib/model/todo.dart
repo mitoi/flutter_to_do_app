@@ -7,14 +7,17 @@ class Todo {
   String parentId;
   List children;
   String priority;
-  Todo(
-      {this.isComplet,
-      this.title,
-      this.id,
-      this.description,
-      this.parentId,
-      this.children,
-      this.priority});
+  String userId;
+  Todo({
+    this.isComplet,
+    this.title,
+    this.id,
+    this.description,
+    this.parentId,
+    this.children,
+    this.priority,
+    this.userId,
+  });
 
   factory Todo.fromJson(Map<String, dynamic> map) {
     return Todo(
@@ -25,6 +28,7 @@ class Todo {
       parentId: map["parentId"],
       children: map["children"],
       priority: map["priority"],
+      userId: map["userId"],
     );
   }
 
@@ -34,6 +38,7 @@ class Todo {
       "description": description,
       "parentId": parentId,
       "priority": priority,
+      "userId": userId,
     };
   }
 }

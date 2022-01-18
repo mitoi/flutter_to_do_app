@@ -8,9 +8,9 @@ class TodoServices {
   String _url = "http://localhost:3000/api";
 
   // to list all todos
-  Future<List<Todo>> getAllTodos() async {
+  Future<List<Todo>> getAllTodos(String userId) async {
     try {
-      Response response = await get(Uri.parse("$_url/todos"));
+      Response response = await get(Uri.parse("$_url/todos/$userId"));
       if (response.statusCode == 200) {
         // debugPrint(response.body);
         return List<Todo>.from(
