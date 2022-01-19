@@ -2,7 +2,7 @@ const { Router } = require("express");
 const todoController = require("../controller/TodoController")
 const router = Router();
 
-router.get("/todos/:userId",todoController.listParentTodos);
+router.get("/todos/user/:userId",todoController.listParentTodos);
 router.post("/todos", todoController.createNewTodos);
 router.get("/todos/:id",todoController.getSpecificTodo);
 router.delete("/todos/:id",todoController.deleteTodos);

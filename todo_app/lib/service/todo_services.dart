@@ -5,12 +5,14 @@ import 'package:http/http.dart';
 import 'package:todo_app/model/todo.dart';
 
 class TodoServices {
-  String _url = "http://localhost:3000/api";
+  String _url =
+      "https://us-central1-login-test-7eb21.cloudfunctions.net/app/api";
 
   // to list all todos
   Future<List<Todo>> getAllTodos(String userId) async {
+    String url = "$_url/todos/user/$userId";
     try {
-      Response response = await get(Uri.parse("$_url/todos/$userId"));
+      Response response = await get(Uri.parse(url));
       if (response.statusCode == 200) {
         // debugPrint(response.body);
         return List<Todo>.from(
